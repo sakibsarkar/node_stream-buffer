@@ -8,6 +8,16 @@ server.on("request", (req, res) => {
     readStream.on("data", (buff) => {
       res.write(buff);
     });
+    readStream.on("error", () => {
+      res.statusCode = 500;
+      res.end(" \n \n  An error occurd :( ");
+    });
+    readStream.on("end", () => {
+      res.end("\n \n Streaming end... \n -Thank you <3");
+    });
+  }
+  if (req.url === "/") {
+    res.end("Hello Server");
   }
 });
 
